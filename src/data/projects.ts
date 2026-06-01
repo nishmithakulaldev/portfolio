@@ -17,4 +17,21 @@ export const projects: Project[] = [
     ],
     completedDate: "2026-05",
   },
+  {
+    id: 2,
+    title: "Portfolio Site",
+    description:
+      "A responsive personal portfolio built with React and TypeScript.",
+    longDescription:
+      "My personal portfolio website built with React, TypeScript, and Tailwind CSS. Features multi-page routing with React Router, typed components with TypeScript interfaces, and responsive design that works across all screen sizes.",
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    githubUrl: "https://github.com/nishmithakulaldev/portfolio",
+    learnings: [
+      "React components with typed props using TypeScript interfaces",
+      "React Router for client-side navigation with Layout pattern",
+      "Responsive design with Tailwind's mobile-first breakpoints",
+      "Component composition — building pages from reusable pieces",
+    ],
+    completedDate: "2026-06",
+  },
 ];

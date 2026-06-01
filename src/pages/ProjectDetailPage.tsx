@@ -15,7 +15,7 @@ const ProjectDetailPage = () => {
           to="/projects"
           className="text-blue-500 hover:underline font-medium"
         >
-          Back to Projects
+          ← Back to Projects
         </Link>
       </div>
     );
@@ -26,7 +26,7 @@ const ProjectDetailPage = () => {
         to="/projects"
         className="text-blue-500 hover:underline text-sm mb-6 inline-block"
       >
-        Back to Projects
+        ← Back to Projects
       </Link>
       <h1 className="text-3xl font-bold mb-2">{project.title}</h1>
       <p className="text-sm text-gray-400 mb-6">
