@@ -33,5 +33,6 @@ export const projects: Project[] = [
       "Component composition — building pages from reusable pieces",
     ],
     completedDate: "2026-06",
+    liveUrl: "https://portfolio-nkulal-projects.vercel.app/",
   },
 ];

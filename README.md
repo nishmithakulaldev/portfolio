@@ -1,73 +1,108 @@
-# React + TypeScript + Vite
+# Portfolio Site
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive personal portfolio website built with React, TypeScript, and Tailwind CSS. Features multi-page routing, typed components, and a contact form with validation.
 
-Currently, two official plugins are available:
+**Live Demo:** [portfolio-nkulal-projects.vercel.app](https://portfolio-nkulal-projects.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- **Multi-page SPA** — Home, About, Projects, Project Detail, Contact, and 404 pages with client-side routing
+- **Typed Components** — Every component uses TypeScript interfaces for props, state, and data
+- **Responsive Design** — Mobile-first layout using Tailwind's breakpoint system (mobile → tablet → desktop)
+- **Contact Form** — Controlled inputs with real-time validation and disabled state management
+- **Active Nav Highlighting** — Current page highlighted in the navigation using `useLocation` hook
+- **Dynamic Project Data** — Projects stored as typed data, rendered on both list and detail pages
+- **Auto-growing Portfolio** — New projects are added to a data file and appear across the site automatically
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Pages
 
-## Expanding the ESLint configuration
+- **Home** — Hero section, tech stack overview, and recent projects preview
+- **About** — Bio, skills grid organized by category, currently learning section
+- **Projects** — Responsive grid of project cards with tech tags
+- **Project Detail** — Full write-up with description, tech stack, key learnings, and links
+- **Contact** — Validated form with controlled inputs and success state
+- **404** — Catch-all route for unknown URLs
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Architecture
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/
+│   ├── layout/
+│   │   ├── Header.tsx          → Nav with active link highlighting
+│   │   └── Footer.tsx          → Social links and copyright
+│   └── projects/
+│       ├── ProjectCard.tsx     → Card for project list view
+│       └── ProjectList.tsx     → Responsive grid of cards
+│
+├── pages/
+│   ├── HomePage.tsx            → Hero + tech bar + recent projects
+│   ├── AboutPage.tsx           → Bio + skills grid + currently learning
+│   ├── ProjectsPage.tsx        → All projects grid
+│   ├── ProjectDetailPage.tsx   → Full project write-up
+│   ├── ContactPage.tsx         → Validated contact form
+│   └── NotFoundPage.tsx        → 404 catch-all
+│
+├── data/
+│   └── projects.ts             → Typed project data (grows with roadmap)
+│
+├── types/
+│   └── index.ts                → TypeScript interfaces
+│
+└── App.tsx                     → BrowserRouter + Layout + Routes
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Design Decisions
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Why TypeScript over JavaScript?**
+TypeScript catches errors at compile time. The `Project` interface ensures every project entry has all required fields — if I forget `techStack` or pass a number for `title`, the editor shows an error before the code runs. This same contract flows through props, meaning components can't receive mistyped data.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Why React Router with a Layout pattern?**
+The Layout component wraps all routes with a shared Header and Footer using `<Outlet>`. This avoids repeating the layout in every page component. Adding a new page means adding one `<Route>` — the layout is automatic.
+
+**Why controlled form inputs?**
+React owns the form state, not the DOM. This gives full control over validation on every keystroke, enabling the disabled submit button pattern. In an uncontrolled form, you'd only validate on submit — controlled forms validate continuously.
+
+**Why data-driven project rendering?**
+Projects are stored in a typed array in `data/projects.ts`. The Home page, Projects page, and Project Detail page all read from the same source. Adding a new project means adding one object to the array — it appears everywhere automatically.
+
+## What I Learned
+
+- **TypeScript with React** — Interfaces for props, state, and data. Generic hooks (`useState<ContactForm>`). Union types for restricted values. `import type` for type-only imports.
+- **React Router** — BrowserRouter, Layout with Outlet, Link vs anchor tags, useParams for dynamic routes, useLocation for active nav, catch-all 404 route.
+- **Component architecture** — Separating pages from reusable components, data from presentation. Progressive disclosure (card summary → detail page).
+- **Controlled forms** — useState for form state, single handleChange with computed property names, real-time validation, conditional rendering for success state.
+- **Responsive design** — Tailwind's mobile-first breakpoints (sm/md/lg), CSS Grid for adaptive layouts, flexbox for alignment.
+- **YAGNI principle** — Don't create abstractions before you need them. Built a Button component prematurely and ended up deleting it.
+
+## Tech Stack
+
+- **Framework:** React 19
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Build Tool:** Vite
+- **Routing:** React Router v7
+- **Deployment:** Vercel
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) 18 or later
+
+### Installation
+
+```bash
+git clone https://github.com/nishmithakulaldev/portfolio.git
+cd portfolio
+npm install
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+
+### Build for Production
+
+```bash
+npm run build
 ```
