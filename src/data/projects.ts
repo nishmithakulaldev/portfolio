@@ -6,7 +6,7 @@ export const projects: Project[] = [
     description: "A command-line task management app built with C# and .NET.",
     longDescription:
       "A full-featured CLI task manager built from scratch to learn OOP and SOLID principles. Supports adding, completing, deleting, filtering, and sorting tasks. Tasks persist to a local JSON file using System.Text.Json. The architecture follows Clean Architecture with a service layer, repository pattern for data access, and the Command Pattern for extensible CLI commands. Every command is its own class, making it easy to add new features without modifying existing code.",
-    techStack: ["C#", ".NET9", "System.Text.Json"],
+    techStack: ["C#", ".NET 9", "System.Text.Json"],
     githubUrl: "https://github.com/nishmithakulaldev/TaskManager",
     learnings: [
       "SOLID principles — Single Responsibility, Open/Closed, Dependency Inversion applied to real code",
@@ -34,5 +34,23 @@ export const projects: Project[] = [
     ],
     completedDate: "2026-06",
     liveUrl: "https://portfolio-nkulal-projects.vercel.app/",
+  },
+  {
+    id: 3,
+    title: "SQL Playground",
+    description:
+      "A hands-on PostgreSQL notebook covering advanced SQL, indexing, and transactions.",
+    longDescription:
+      "A documented knowledge base for advanced PostgreSQL, built on a realistic six-table e-commerce schema (users, categories, products, orders, order_items, reviews). Each SQL file is a runnable, heavily commented set of queries organized by topic — from CTEs and window functions to indexes, query plan analysis with EXPLAIN ANALYZE, and transaction isolation. The repo doubles as an interview reference: every query is annotated with what it does, why it's written that way, and the concept it demonstrates.",
+    techStack: ["PostgreSQL 16", "Neon", "pgAdmin 4", "SQL"],
+    githubUrl: "https://github.com/nishmithakulaldev/sql-playground",
+    learnings: [
+      "CTEs and window functions — ROW_NUMBER, RANK, DENSE_RANK, PARTITION BY, and nested aggregate patterns for running totals and percentages",
+      "Indexing strategy — B-tree indexes, composite index column ordering (leftmost-prefix rule), and the write-cost trade-off",
+      "Query plan analysis — reading EXPLAIN ANALYZE output, distinguishing Seq Scan from Index Scan and Index Only Scan",
+      "Transactions and ACID — atomicity, consistency, isolation levels (READ COMMITTED vs REPEATABLE READ vs SERIALIZABLE), and durability",
+      "Concurrency control — SELECT FOR UPDATE for pessimistic locking, deadlock detection, and lock-ordering to prevent cycles",
+    ],
+    completedDate: "2026-07",
   },
 ];
